@@ -65,9 +65,20 @@
             </div>
         </div>
 
-        <!-- API Status Cards -->
-        <div class="row mb-4" id="apiStatus">
-            <!-- API status cards will be populated by JavaScript -->
+        <!-- 5-Day Forecast Section (moved up) -->
+        <div class="row mb-4" id="forecastSection" style="display: none;">
+            <div class="col-12">
+                <div class="forecast-card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-calendar-alt"></i> 5-Day Forecast
+                        </h5>
+                    </div>
+                    <div class="card-body" id="forecastContent">
+                        <!-- Forecast content will be populated here -->
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Current Weather Section -->
@@ -115,21 +126,6 @@
             </div>
         </div>
 
-        <!-- Forecast Section -->
-        <div class="row mb-4" id="forecastSection" style="display: none;">
-            <div class="col-12">
-                <div class="forecast-card">
-                    <div class="card-header">
-                        <h5 class="mb-0">
-                            <i class="fas fa-calendar-alt"></i> 5-Day Forecast
-                        </h5>
-                    </div>
-                    <div class="card-body" id="forecastContent">
-                        <!-- Forecast content will be populated here -->
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Favorites Section -->
         <div class="row mb-4">
@@ -179,6 +175,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- API Status Cards (moved to bottom) -->
+        <div class="row mb-4" id="apiStatus">
+            <!-- API status cards will be populated by JavaScript -->
         </div>
     </div>
 
