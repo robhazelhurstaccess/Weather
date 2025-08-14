@@ -41,6 +41,9 @@ const limiter = rateLimit({
     handler: (req, res) => {
         const retryAfter = Math.ceil(rateLimitConfig.windowMs / 1000);
         
+        // Log the rate limit violation
+        console.warn(`Rate limit exceeded for IP: ${req.ip}, Path: ${req.path}, Method: ${req.method}`);
+        
         res.status(429).json({
             error: 'Rate limit exceeded',
             message: 'Too many requests from this IP, please try again later.',
@@ -49,14 +52,6 @@ const limiter = rateLimit({
             windowMs: rateLimitConfig.windowMs,
             resetTime: new Date(Date.now() + rateLimitConfig.windowMs).toISOString()
         });
-    },
-    
-    // On limit reached callback for logging
-    onLimitReached: (req, res, options) => {
-        console.warn(`Rate limit exceeded for IP: ${req.ip}, Path: ${req.path}, Method: ${req.method}`);
-        
-        // Could log to database here for monitoring
-        // loggerService.logRateLimitViolation(req.ip, req.path, req.method);
     }
 });
 

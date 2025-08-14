@@ -128,6 +128,115 @@ npm run test:coverage
 - `GET /api/logs/queries` - Query log history
 - `GET /api/logs/export` - Export logs (CSV/JSON)
 
+## Troubleshooting
+
+### Common Issues and Solutions
+
+#### Issue 1: App Crashes with "SQLITE_CANTOPEN" Error
+**Error Message**: `Error opening database: SQLITE_CANTOPEN: unable to open database file`
+
+**Cause**: Missing `data` directory for SQLite database file
+
+**Solution**:
+```bash
+# Create required directories
+mkdir data
+mkdir logs
+
+# On Windows PowerShell:
+New-Item -Path "data" -ItemType Directory -Force
+New-Item -Path "logs" -ItemType Directory -Force
+
+# Restart the application
+npm run dev
+```
+
+#### Issue 2: express-rate-limit Deprecation Warning
+**Warning**: `The onLimitReached configuration option is deprecated`
+
+**Cause**: Using deprecated option in express-rate-limit v7+
+
+**Solution**: This is just a warning and won't prevent the app from running. The rate limiting still works correctly.
+
+#### Issue 3: Missing Frontend Files (404 errors)
+**Error**: Static files (CSS, JS) not loading
+
+**Cause**: Missing `public` directory structure
+
+**Solution**:
+```bash
+# Create public directory structure
+mkdir public\css
+mkdir public\js
+mkdir public\images
+
+# Files should be present:
+# public/css/dashboard.css
+# public/js/dashboard.js
+# public/js/testing.js
+# public/js/comparison.js
+```
+
+#### Issue 4: API Keys Not Working
+**Error**: "Service unavailable" messages
+
+**Solution**:
+1. Verify `.env` file exists (copy from `.env.example`)
+2. Add at least one valid API key
+3. Restart the application after adding keys
+
+#### Issue 5: Port Already in Use
+**Error**: `EADDRINUSE: address already in use`
+
+**Solution**:
+```bash
+# Change port in .env file
+PORT=3001
+
+# Or kill existing process on port 3000
+# Windows:
+netstat -ano | findstr :3000
+taskkill /PID [process_id] /F
+```
+
+### Required Directory Structure
+Ensure these directories exist in your project root:
+```
+├── data/           # SQLite database files
+├── logs/           # Query and error logs  
+├── public/         # Static frontend files
+│   ├── css/        # Stylesheets
+│   ├── js/         # JavaScript files
+│   └── images/     # Image assets
+├── views/          # HTML templates
+└── node_modules/   # Dependencies (created by npm install)
+```
+
+### Quick Setup Verification
+```bash
+# 1. Check Node.js version
+node --version  # Should be v16+
+
+# 2. Verify project structure
+dir  # Should show package.json, server.js, etc.
+
+# 3. Install dependencies
+npm install
+
+# 4. Create missing directories
+mkdir data logs
+
+# 5. Configure environment
+copy .env.example .env
+# Edit .env with your API keys
+
+# 6. Start application
+npm run dev
+
+# 7. Verify startup
+# Should see: "Weather Dashboard UK Server running on port 3000"
+```
+
 ## Configuration
 
 ### Environment Variables
